@@ -5,7 +5,7 @@ import java.net.*;
 
 
 public class Market {
-    static void start() {
+    public void start() {
         int port = 5001;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {

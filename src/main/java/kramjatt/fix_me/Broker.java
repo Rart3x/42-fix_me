@@ -5,7 +5,7 @@ import java.net.*;
 
 
 public class Broker {
-    static void start() {
+    public void start() {
         int port = 5000;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
