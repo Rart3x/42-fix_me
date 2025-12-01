@@ -4,29 +4,29 @@ import java.io.*;
 import java.net.*;
 
 
-public class Server {
-    static void main(String[] args) {
-        int port = 1231;
+public class Market {
+    static void start() {
+        int port = 5001;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println(Color.BLUE + "Server started on port " + port + Color.RESET);
+            System.out.println(Color.BLUE + "Market server started on port " + port + Color.RESET);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println(Color.BLUE + "Client connected: " + clientSocket.getInetAddress() + Color.RESET);
 
-                new Thread(new ClientHandler(clientSocket)).start();
+                new Thread(new MarketHandler(clientSocket)).start();
             }
         } catch (IOException e) {
-            System.err.println(Color.RED + "Error starting server: " + e.getMessage() + Color.RESET);
+            System.err.println(Color.RED + "Error starting market server: " + e.getMessage() + Color.RESET);
         }
     }
 }
 
-class ClientHandler implements Runnable {
+class MarketHandler implements Runnable {
     private final Socket clientSocket;
 
-    public ClientHandler(Socket socket) {
+    public MarketHandler(Socket socket) {
         this.clientSocket = socket;
     }
 
@@ -46,3 +46,4 @@ class ClientHandler implements Runnable {
         }
     }
 }
+
