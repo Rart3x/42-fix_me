@@ -2,6 +2,7 @@ package kramjatt.fix_me;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 
 public class Market {
@@ -24,10 +25,14 @@ public class Market {
 }
 
 class MarketHandler implements Runnable {
-    private final Socket clientSocket;
+    private final Socket    clientSocket;
+    private final int       clientId;
 
     public MarketHandler(Socket socket) {
+        Random random = new Random();
+
         this.clientSocket = socket;
+        this.clientId = random.nextInt(999999);
     }
 
     @Override
@@ -38,6 +43,8 @@ class MarketHandler implements Runnable {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         ) {
+            out.println(Color.BLUE + this.clientId + " " + Color.RESET);
+
             while ((message = in.readLine()) != null) {
                 System.out.println(Color.BLUE + "Received from " + clientSocket.getInetAddress() + ": " + message + Color.RESET);
             }
