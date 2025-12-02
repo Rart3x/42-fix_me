@@ -10,7 +10,7 @@ public class Broker {
     public int[]    clientIds;
 
     public void start() {
-        int port = 5000;
+        int port = 5002;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println(Color.BLUE + "Broker server started on port " + port + Color.RESET);
@@ -70,7 +70,8 @@ class BrokerHandler implements Runnable {
         }
     }
 
-    public void stop() {
+    public void stop() throws IOException {
+        this.clientSocket.close();
         Thread.currentThread().interrupt();
     }
 }

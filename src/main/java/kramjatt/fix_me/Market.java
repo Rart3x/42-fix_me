@@ -68,7 +68,8 @@ class MarketHandler implements Runnable {
         }
     }
 
-    public void stop() {
+    public void stop() throws IOException {
+        this.clientSocket.close();
         Thread.currentThread().interrupt();
     }
 }
