@@ -56,11 +56,21 @@ class BrokerHandler implements Runnable {
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         ) {
             out.println(Color.BLUE + this.clientId + " " + Color.RESET);
-            while ((message = in.readLine()) != null) {
+
+            while ((message = in.readLine()) != null && !Thread.currentThread().isInterrupted()) {
                 System.out.println(Color.BLUE + "Received from " + clientSocket.getInetAddress() + ": " + message + Color.RESET);
+
+                if (message.equals("exit")) {
+                    this.stop();
+                }
             }
+
         } catch (IOException e) {
             System.err.println(Color.RED + "Error handling client: " + e.getMessage() + Color.RESET);
         }
+    }
+
+    public void stop() {
+        Thread.currentThread().interrupt();
     }
 }
