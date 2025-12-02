@@ -6,6 +6,8 @@ import java.util.*;
 
 
 public class Market {
+    public int[]    clientIds;
+
     public void start() {
         int port = 5001;
 
@@ -16,7 +18,7 @@ public class Market {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println(Color.BLUE + "Client connected: " + clientSocket.getInetAddress() + Color.RESET);
 
-                new Thread(new MarketHandler(clientSocket)).start();
+                new Thread(new MarketHandler(clientSocket, this.clientIds)).start();
             }
         } catch (IOException e) {
             System.err.println(Color.RED + "Error starting market server: " + e.getMessage() + Color.RESET);
@@ -28,11 +30,20 @@ class MarketHandler implements Runnable {
     private final Socket    clientSocket;
     private final int       clientId;
 
-    public MarketHandler(Socket socket) {
+    public MarketHandler(Socket socket, int[] clientIds) {
         Random random = new Random();
 
         this.clientSocket = socket;
-        this.clientId = random.nextInt(999999);
+
+        int tmpId = 0;
+        int tmpClientId = random.nextInt(999999);
+
+        while (Arrays.stream(clientIds).anyMatch(id -> id == tmpClientId)) {
+            tmpId = random.nextInt(999999);
+        }
+
+        this.clientId = tmpId;
+        clientIds[this.clientId] = this.clientId;
     }
 
     @Override
