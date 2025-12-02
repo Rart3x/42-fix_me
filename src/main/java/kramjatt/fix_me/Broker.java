@@ -36,8 +36,8 @@ class BrokerHandler implements Runnable {
 
         this.clientSocket = socket;
 
-        int tmpId = 0;
         int tmpClientId = random.nextInt(Utils.MAX_ID);
+        int tmpId = 0;
 
         while (Arrays.stream(clientIds).anyMatch(id -> id == tmpClientId)) {
             tmpId = random.nextInt(Utils.MAX_ID);
@@ -53,7 +53,7 @@ class BrokerHandler implements Runnable {
 
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
         ) {
             out.println(Color.BLUE + "ID:" + this.clientId + " " + Color.RESET);
 

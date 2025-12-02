@@ -27,16 +27,16 @@ public class Market {
 }
 
 class MarketHandler implements Runnable {
-    private final Socket    clientSocket;
     private final int       clientId;
+    private final Socket    clientSocket;
 
     public MarketHandler(Socket socket, int[] clientIds) {
         Random random = new Random();
 
         this.clientSocket = socket;
 
-        int tmpId = 0;
         int tmpClientId = random.nextInt(Utils.MAX_ID);
+        int tmpId = 0;
 
         while (Arrays.stream(clientIds).anyMatch(id -> id == tmpClientId)) {
             tmpId = random.nextInt(Utils.MAX_ID);
@@ -52,7 +52,7 @@ class MarketHandler implements Runnable {
 
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
         ) {
             out.println(Color.BLUE + "ID:" + this.clientId + " " + Color.RESET);
 
