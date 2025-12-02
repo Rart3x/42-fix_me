@@ -37,10 +37,10 @@ class BrokerHandler implements Runnable {
         this.clientSocket = socket;
 
         int tmpId = 0;
-        int tmpClientId = random.nextInt(999999);
+        int tmpClientId = random.nextInt(Utils.MAX_ID);
 
         while (Arrays.stream(clientIds).anyMatch(id -> id == tmpClientId)) {
-            tmpId = random.nextInt(999999);
+            tmpId = random.nextInt(Utils.MAX_ID);
         }
 
         this.clientId = tmpId;
@@ -55,7 +55,7 @@ class BrokerHandler implements Runnable {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         ) {
-            out.println(Color.BLUE + this.clientId + " " + Color.RESET);
+            out.println(Color.BLUE + "ID:" + this.clientId + " " + Color.RESET);
 
             while ((message = in.readLine()) != null && !Thread.currentThread().isInterrupted()) {
                 System.out.println(Color.BLUE + "Received from " + clientSocket.getInetAddress() + ": " + message + Color.RESET);
