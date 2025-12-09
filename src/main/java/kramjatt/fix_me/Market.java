@@ -9,7 +9,7 @@ public class Market {
     public int[]    clientIds;
 
     public void start() {
-        int port = 5001;
+        int port = 8001;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println(Color.BLUE + "Market server started on port " + port + Color.RESET);

@@ -6,9 +6,8 @@ public class Main  {
         Market market = new Market();
         Router router = new Router();
 
-        //broker.start();
-        //market.start();
-
         router.start();
+        broker.start();
+        market.start();
     }
 }

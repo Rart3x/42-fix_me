@@ -10,7 +10,7 @@ public class Broker {
     public int[]    clientIds;
 
     public void start() {
-        int port = 5002;
+        int port = 8000;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println(Color.BLUE + "Broker server started on port " + port + Color.RESET);
